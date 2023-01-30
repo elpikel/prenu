@@ -73,6 +73,9 @@ jobs:
     - name: Run Dialyzer
       run: mix dialyzer --format github
 
+    - name: Run Sobelow
+      run: mix sobelow -i Config.HTTPS
+
     - name: Run Tests
       run: mix test
       env:
