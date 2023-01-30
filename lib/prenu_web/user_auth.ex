@@ -1,4 +1,5 @@
 defmodule PrenuWeb.UserAuth do
+  @moduledoc false
   use PrenuWeb, :verified_routes
 
   import Plug.Conn

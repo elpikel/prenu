@@ -6,7 +6,9 @@ defmodule Prenu.Accounts do
   import Ecto.Query, warn: false
   alias Prenu.Repo
 
-  alias Prenu.Accounts.{User, UserToken, UserNotifier}
+  alias Prenu.Accounts.User
+  alias Prenu.Accounts.UserNotifier
+  alias Prenu.Accounts.UserToken
 
   ## Database getters
 

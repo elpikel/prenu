@@ -1,4 +1,5 @@
 defmodule PrenuWeb.ErrorHTML do
+  @moduledoc false
   use PrenuWeb, :html
 
   # If you want to customize your error pages,
