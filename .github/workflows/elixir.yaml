@@ -1,0 +1,63 @@
+name: Build and Test
+
+on:
+  push
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Elixir
+      uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+      with:
+        elixir-version: '1.14.1'
+        otp-version: '25.1.2'
+
+    - name: Restore dependencies cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+
+    - name: Install Dependencies
+      run: mix deps.get
+
+    - name: Check Code Format
+      run: mix format --check-formatted
+
+    - name: Run Credo
+      run: mix credo
+
+    - name: Run Dialyzer
+      run: mix dialyzer
+
+    - name: Run Tests
+      run: mix test
+      env:
+        DB_PASSWORD: postgres
+        DB_HOST: localhost
+  
