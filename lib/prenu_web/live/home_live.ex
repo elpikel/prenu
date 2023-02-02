@@ -3,8 +3,6 @@ defmodule PrenuWeb.HomeLive do
 
   @impl Phoenix.LiveView
   def render(assigns) do
-    IO.inspect(assigns)
-
     ~H"""
     <%= for uploaded_file <- @uploaded_files do %>
       <img src={uploaded_file} />
@@ -83,7 +81,6 @@ defmodule PrenuWeb.HomeLive do
 
         {:ok, ~p"/uploads/#{Path.basename(dest)}"}
       end)
-      |> IO.inspect()
 
     {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
   end
