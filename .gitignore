@@ -36,3 +36,5 @@ npm-debug.log
 /priv/plts/*.plt
 /priv/plts/*.plt.hash
 
+# Ignore uploads that are produced by build tools.
+/priv/static/uploads/

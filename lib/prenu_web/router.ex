@@ -9,18 +9,12 @@ defmodule PrenuWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, {PrenuWeb.Layouts, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
+    plug :put_secure_browser_headers
     plug :fetch_current_user
   end
 
   pipeline :api do
     plug :accepts, ["json"]
-  end
-
-  scope "/", PrenuWeb do
-    pipe_through :browser
-
-    get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
@@ -66,6 +60,7 @@ defmodule PrenuWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{PrenuWeb.UserAuth, :ensure_authenticated}] do
+      live "/", HomeLive, :index
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
