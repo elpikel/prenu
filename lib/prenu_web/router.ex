@@ -59,6 +59,9 @@ defmodule PrenuWeb.Router do
     end
 
     post "/users/log_in", UserSessionController, :create
+
+    get "/auth/:provider", OauthController, :request
+    get "/auth/:provider/callback", OauthController, :callback
   end
 
   scope "/", PrenuWeb do

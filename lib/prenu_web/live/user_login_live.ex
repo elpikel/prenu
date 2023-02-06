@@ -38,6 +38,12 @@ defmodule PrenuWeb.UserLoginLive do
           </.button>
         </:actions>
       </.simple_form>
+
+      <div class="mt-5 text-center">
+        <.link navigate={~p"/auth/google"} class="">
+          Sign with Google
+        </.link>
+      </div>
     </div>
     """
   end

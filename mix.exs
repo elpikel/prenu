@@ -57,7 +57,9 @@ defmodule Prenu.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.2", only: [:dev], runtime: false},
-      {:sobelow, "~> 0.11.1", only: :dev}
+      {:sobelow, "~> 0.11.1", only: :dev},
+      {:ueberauth, "~> 0.10.3"},
+      {:ueberauth_google, "~> 0.10.2"}
     ]
   end
 

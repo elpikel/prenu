@@ -352,4 +352,28 @@ defmodule Prenu.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Fetches or creates user.
+
+  ## Examples
+
+      iex> fetch_or_create_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> fetch_or_create_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def fetch_or_create_user(attrs) do
+    case get_user_by_email(attrs.email) do
+      %User{} = user ->
+        {:ok, user}
+
+      _ ->
+        %User{}
+        |> User.registration_changeset(attrs)
+        |> Repo.insert()
+    end
+  end
 end
